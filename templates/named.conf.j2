@@ -1,0 +1,61 @@
+options {
+    directory "/var/named";
+
+    listen-on {
+        127.0.0.1;
+        {{ ansible_default_ipv4['address'] }};
+    };
+
+    allow-recursion {
+        127.0.0.1;
+{% for client in clients %}
+        {{ client }};
+{% endfor %}
+    };
+
+    allow-transfer { "none"; };
+
+    forwarders { 
+{% for forwarder in forwarders %}
+        {{ forwarder }};
+{% endfor %}
+    };
+    forward only;
+};
+
+logging {
+    category lame-servers { null; };
+    channel default_debug {
+        file "data/named.run";
+        severity dynamic;
+    };
+};
+
+zone "." IN {
+    type hint;
+    file "named.root";
+};
+
+{% for zone in zones %}
+zone "{{ zone | regex_replace('\.db$', '') }}" { 
+{% if bind_role == 'master' %}
+    type master;
+    file "masters/{{ zone }}";
+    notify-source {{ master }};
+    notify explicit;
+    also-notify {
+        {{ slave }};
+    };
+    allow-transfer {
+        {{ slave }};
+    };
+{% elif bind_role == 'slave' %}
+    type slave;
+    file "slaves/{{ zone }}";
+    masters {
+        {{ master }};
+    };
+{% endif %}
+};
+
+{% endfor %}

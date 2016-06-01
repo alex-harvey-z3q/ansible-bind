@@ -1,0 +1,20 @@
+---
+- name: config > named.conf
+  template:
+    src:   named.conf.j2
+    dest:  /etc/named.conf
+    owner: root
+    group: named
+    mode:  0644
+  notify:
+    - named restart
+
+- name: config > named.root
+  copy:
+    src:   "{{ named_root }}"
+    dest:  /var/named/named.root
+    owner: named
+    group: named
+    mode:  0644
+  notify:
+    - named restart
