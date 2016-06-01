@@ -1,0 +1,29 @@
+---
+driver:
+  name: vagrant
+
+platforms:
+  - name: centos-7.2
+    driver_plugin: vagrant
+    driver_config:
+      box: puppetlabs/centos-7.2-64-nocm
+
+provisioner:
+  name: ansible_playbook
+  hosts: test-kitchen
+  ansible_verbose: false
+  ansible_verbosity: 2
+  require_ansible_repo: false
+  require_ansible_omnibus: true
+  require_chef_for_busser: false
+
+verifier:
+  name: serverspec
+
+suites:
+  - name: default
+    verifier:
+      patterns:
+        - roles/ansible-bind/test/integration/default/serverspec/default_spec.rb
+      bundler_path: '/usr/local/bin'
+      rspec_path: '/usr/local/bin'
