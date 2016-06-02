@@ -27,3 +27,9 @@ suites:
         - roles/ansible-bind/test/integration/default/serverspec/default_spec.rb
       bundler_path: '/usr/local/bin'
       rspec_path: '/usr/local/bin'
+  - name: slave
+    verifier:
+      patterns:
+        - roles/ansible-bind/test/integration/slave/serverspec/default_spec.rb
+      bundler_path: '/usr/local/bin'
+      rspec_path: '/usr/local/bin'
