@@ -44,7 +44,7 @@ context 'data files' do
     '/var/named/named.localhost',
     '/var/named/named.loopback',
     '/var/named/named.root',
-    '/var/named/masters/0.168.192.in-addr.arpa.db',
+    '/var/named/masters/0.0.10.in-addr.arpa.db',
     '/var/named/masters/example.com.db',
   ]
   .each do |file|
@@ -57,7 +57,7 @@ end
 
 context 'config file' do
   describe file('/etc/named.conf') do
-    its(:content) { is_expected.to match /zone.*0.168.192.in-addr.arpa/ }
+    its(:content) { is_expected.to match /zone.*0.0.10.in-addr.arpa/ }
     its(:content) { is_expected.to match /zone.*example.com/ }
   end
 end
@@ -65,7 +65,7 @@ end
 context 'log files' do
   describe file('/var/log/messages') do
     its(:content) { is_expected.to match /starting BIND/ }
-    its(:content) { is_expected.to match /loaded serial 2002022401/ }
+    its(:content) { is_expected.to match /loaded serial 2016010100/ }
     its(:content) { is_expected.to match /all zones loaded/ }
     its(:content) { is_expected.to match /sending notifies/ }
   end
