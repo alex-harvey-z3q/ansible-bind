@@ -1,18 +1,20 @@
 ---
 - name: zones > directories
   file:
-    path:  "/var/named/{{ 'masters' if bind_role == 'master' else 'slaves' }}"
+    path:  /var/named/masters
     state: directory
     owner: named
     group: named
+  when: bind_role == 'master'
 
 - name: zones > zone files
   copy:
-    src:   "{{ zones_source }}/{{ item }}"
-    dest:  "/var/named/{{ 'masters' if bind_role == 'master' else 'slaves' }}/{{ item }}"
+    src:   "{{ zone_files_source }}/{{ item }}.db"
+    dest:  "/var/named/masters/{{ item }}.db"
     owner: named
     group: named
     mode:  0644
+  when: bind_role == 'master'
   with_items: "{{ zones }}"
   notify:
     - bind restart

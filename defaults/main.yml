@@ -1,5 +1,4 @@
 ---
-bind_role:  master
-clients: ['0.0.0.0/0']
-forwarders: []
-zones: []
+bind_role: master
+allow_recursion: ['0.0.0.0/0']
+forwarders: ['8.8.8.8', '8.8.4.4']

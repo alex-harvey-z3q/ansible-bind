@@ -2,22 +2,20 @@ options {
     directory "/var/named";
 
     listen-on {
-        127.0.0.1;
-        {{ ansible_default_ipv4['address'] }};
-    };
-
-    allow-recursion {
-        127.0.0.1;
-{% for client in clients %}
-        {{ client }};
+{% for address in listen_on %}
+        {{ address }};
 {% endfor %}
     };
 
-    allow-transfer { "none"; };
+    allow-recursion {
+{% for address in allow_recursion %}
+        {{ address }};
+{% endfor %}
+    };
 
     forwarders { 
-{% for forwarder in forwarders %}
-        {{ forwarder }};
+{% for address in forwarders %}
+        {{ address }};
 {% endfor %}
     };
     forward only;
@@ -37,21 +35,22 @@ zone "." IN {
 };
 
 {% for zone in zones %}
-zone "{{ zone | regex_replace('\.db$', '') }}" { 
+zone "{{ zone }}" { 
 {% if bind_role == 'master' %}
     type master;
-    file "masters/{{ zone }}";
-    notify-source {{ master }};
+    file "masters/{{ zone }}.db";
+    notify-source {{ notify_source }};
     notify explicit;
+{% if slaves is defined %}
     also-notify {
-        {{ slave }};
+{% for address in slaves %}
+        {{ address }};
+{% endfor %}
     };
-    allow-transfer {
-        {{ slave }};
-    };
+{% endif %}
 {% elif bind_role == 'slave' %}
     type slave;
-    file "slaves/{{ zone }}";
+    file "slaves/{{ zone }}.db";
     masters {
         {{ master }};
     };
