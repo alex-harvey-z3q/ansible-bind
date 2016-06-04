@@ -1,4 +1,4 @@
-$ORIGIN example.com.
+$ORIGIN 0.0.10.IN-ADDR.ARPA.
 $TTL 1h
 @      IN SOA   ns1.example.com. hostmaster.example.com. (
                   2016010100 ; serial
@@ -8,13 +8,10 @@ $TTL 1h
                   1h         ; nxdomain ttl
                 )
 
-       IN NS      ns1.example.com.
-       IN NS      ns2.example.com.
-
-; Name servers
-ns1    IN A       10.0.0.10
-ns2    IN A       10.0.0.11
-
-; non server domain hosts
-bill   IN  A      10.0.0.12
-fred   IN  A      10.0.0.13
+       IN NS   ns1.example.com.
+       IN NS   ns2.example.com.
+; server host definitions
+10     IN PTR  ns1.example.com.
+11     IN PTR  ns1.example.com.
+12     IN PTR  bill.example.com.
+13     IN PTR  fred.example.com.
