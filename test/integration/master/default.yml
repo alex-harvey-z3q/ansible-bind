@@ -1,21 +1,27 @@
 ---
 - hosts: test-kitchen
   pre_tasks:
-    - yum: name=iproute state=installed
-    - yum: name=net-tools state=installed
-    - yum: name=vim state=installed
-    - service: name=firewalld state=stopped
+    - yum:
+        name=vim
+        state=installed
+    - service:
+        name=firewalld
+        state=stopped
   roles:
-    - { role: ansible-bind,
-        bind_role: master,
-        notify_source: '10.0.0.10',
-        listen_on: ['127.0.0.1', '10.0.0.10'],
-        allow_recursion: ['0.0.0.0/0'],
-        forwarders: ['8.8.8.8', '8.8.4.4'],
-        slaves: ['10.0.0.11', '10.0.0.12'],
-        named_root: "{{ role_path ~ '/test/fixtures/named.root' }}",
+    - {
+        role:              ansible-bind,
+        bind_role:         master,
+        notify_source:     '10.0.0.10',
+        listen_on:         ['127.0.0.1', '10.0.0.10'],
+        allow_recursion:   ['0.0.0.0/0'],
+        forwarders:        ['8.8.8.8', '8.8.4.4'],
+        slaves:            ['10.0.0.11', '10.0.0.12'],
+        named_root:        "{{ role_path ~ '/test/fixtures/named.root' }}",
         zone_files_source: "{{ role_path ~ '/test/fixtures/zones' }}",
-        zones: ['0.0.10.in-addr.arpa', 'example.com'],
+        zones:             ['0.0.10.in-addr.arpa', 'example.com'],
       }
   post_tasks:
-    - lineinfile: dest=/etc/resolv.conf line='nameserver 10.0.0.10' regexp='.*'
+    - lineinfile:
+        dest=/etc/resolv.conf
+        line='nameserver 127.0.0.1'
+        regexp='.*'
