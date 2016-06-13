@@ -2,10 +2,8 @@
 - hosts: test-kitchen
   pre_tasks:
     - yum:
-        name="{{ item }}"
+        name=vim
         state=installed
-      with_items:
-        - vim
     - service:
         name=firewalld
         state=stopped
