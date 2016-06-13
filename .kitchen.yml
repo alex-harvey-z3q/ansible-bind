@@ -26,21 +26,21 @@ suites:
   - name: master
     verifier:
       patterns:
-        - roles/ansible-bind/test/integration/master/serverspec/default_spec.rb
+        - roles/ansible-bind/test/integration/master/serverspec/master_spec.rb
     driver_config:
       network:
         - ['private_network', {ip: '10.0.0.10'}]
   - name: slave1
     verifier:
       patterns:
-        - roles/ansible-bind/test/integration/slave1/serverspec/default_spec.rb
+        - roles/ansible-bind/test/integration/slave1/serverspec/slave1_spec.rb
     driver_config:
       network:
         - ['private_network', {ip: '10.0.0.11'}]
   - name: slave2
     verifier:
       patterns:
-        - roles/ansible-bind/test/integration/slave2/serverspec/default_spec.rb
+        - roles/ansible-bind/test/integration/slave2/serverspec/slave2_spec.rb
     driver_config:
       network:
         - ['private_network', {ip: '10.0.0.12'}]
