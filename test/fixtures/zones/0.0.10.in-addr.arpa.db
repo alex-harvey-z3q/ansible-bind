@@ -10,8 +10,10 @@ $TTL 1h
 
        IN NS   ns1.example.com.
        IN NS   ns2.example.com.
+       IN NS   ns3.example.com.
 ; server host definitions
 10     IN PTR  ns1.example.com.
-11     IN PTR  ns1.example.com.
-12     IN PTR  bill.example.com.
+11     IN PTR  ns2.example.com.
+12     IN PTR  ns3.example.com.
 13     IN PTR  fred.example.com.
+14     IN PTR  joe.example.com.
