@@ -1,0 +1,2 @@
+*.sh linguist-language=yaml
+*.rb linguist-language=yaml
