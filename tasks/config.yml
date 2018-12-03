@@ -7,7 +7,7 @@
     group: named
     mode:  0644
   notify:
-    - named restart
+    - bind restart
 
 - name: config > named.root
   copy:
@@ -17,4 +17,4 @@
     group: named
     mode:  0644
   notify:
-    - named restart
+    - bind restart

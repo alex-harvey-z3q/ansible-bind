@@ -1,5 +1,5 @@
 ---
-- name: named restart
+- name: bind restart
   service:
     name:  named
     state: restarted
