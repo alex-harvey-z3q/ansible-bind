@@ -1,8 +1,5 @@
 ---
 - name: install > packages
   yum:
-    name:  "{{ item }}"
+    name:  ['bind', 'bind-utils']
     state: present
-  with_items:
-    - bind
-    - bind-utils
