@@ -20,5 +20,5 @@
   post_tasks:
     - lineinfile:
         dest=/etc/resolv.conf
-        line='nameserver 10.0.0.10'
+        line='nameserver 10.0.0.12'
         regexp='.*'
