@@ -16,7 +16,6 @@ context 'install' do
   describe user('named') do
     it { is_expected.to exist }
     it { is_expected.to belong_to_group 'named' }
-    it { is_expected.to have_login_shell '/sbin/nologin' }
   end
 end
 
