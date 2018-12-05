@@ -2,6 +2,12 @@
 
 Installs and configures BIND9 in a Master/Slave configuration.
 
+## Architecture
+
+The architecture is shown in the following figure:
+
+![Fig 1](./arch.png)
+
 ## Requirements
 
 None.
@@ -136,3 +142,7 @@ Teardown:
 ```
 $ bundle exec kitchen destroy 
 ```
+
+## See also
+
+I have a blog post about this module's Test Kitchen setup: [Integration testing using Ansible and Test Kitchen](https://alexharv074.github.io/2016/06/13/integration-testing-using-ansible-and-test-kitchen.html).
