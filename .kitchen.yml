@@ -1,12 +1,25 @@
 ---
+# .kitchen.local.yml:
+# ---
+# driver:
+#   region: ap-southeast-2
+#   subnet_id: subnet-1234567890abcdef0
+#   aws_ssh_key_id: default
+#   tags:
+#     foo: bar
+#     baz: qux
+
 driver:
-  name: vagrant
+  name: ec2
+  instance_type: t2.micro
+
+transport:
+  ssh_key: ~/.ssh/default.pem
 
 platforms:
-  - name: centos-7.2
-    driver_plugin: vagrant
-    driver_config:
-      box: puppetlabs/centos-7.2-64-nocm
+  - name: centos-7.4
+    driver:
+      image_id: ami-0acb51609b44c296b
 
 provisioner:
   name: ansible_playbook
