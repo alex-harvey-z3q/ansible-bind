@@ -1,3 +1,13 @@
+# Serverspec.
+#
+# Serverspec is a set of Rspec extensions for testing
+# OS configurations.
+#
+# Rspec and Serverspec are "Pure Ruby DSLs". Therefore,
+# Serverspec code is also Ruby code.
+#
+# Rspec intends to be a human-readable DSL for testing.
+#
 require 'serverspec'
 
 set :backend, :exec

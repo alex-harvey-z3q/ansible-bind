@@ -1,16 +1,18 @@
 ---
+# config section
+#
 driver:
-  name: vagrant
-
+  name: vagrant                           ## Vagrant as virtualisation platform.
+                                          ## Provided by kitchen-vagrant.
 platforms:
   - name: centos-7.2
     driver_plugin: vagrant
     driver_config:
-      box: puppetlabs/centos-7.2-64-nocm
+      box: puppetlabs/centos-7.2-64-nocm  ## CentOS 7.2 Vagrant machine image.
 
 provisioner:
-  name: ansible_playbook
-  hosts: test-kitchen
+  name: ansible_playbook                  ## Ansible as the "provisioner".
+  hosts: test-kitchen                     ## Provided by the kitchen-ansible project.
   ansible_verbose: false
   ansible_verbosity: 2
   require_ansible_repo: false
@@ -18,15 +20,17 @@ provisioner:
   require_chef_for_busser: false
 
 verifier:
-  name: serverspec
-  bundler_path: '/usr/local/bin'
-  rspec_path: '/usr/local/bin'
+  name: serverspec                        ## Use Serverspec as the "verifier"
+  bundler_path: '/usr/local/bin'          ## (test language or framework).
+  rspec_path: '/usr/local/bin'            ## Provided by the kitchen-verifier-serverspec project.
 
+# test suites
+#
 suites:
   - name: master
     verifier:
       patterns:
-        - roles/ansible-bind/test/integration/master/serverspec/master_spec.rb
+        - roles/ansible-bind/test/integration/master/serverspec/master_spec.rb  ## An actual test suite.
     driver_config:
       network:
         - ['private_network', {ip: '10.0.0.10'}]
